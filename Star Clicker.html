@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <script>
+    let stars = 0;
+    let upgradesCost = 20;
+    let upgrades = 1;
+
+    function upgrader() {
+        if (stars >= upgradesCost) {
+            upgrades++;
+            stars -= upgradesCost;
+            upgradesCost = Math.floor(upgradesCost * 1.5);
+            document.getElementById("erro_de_upgrade").innerHTML = `Seu LvL subiu! Agora é ${upgrades}, +${upgrades} Estrela(s) por click`;
+        } else {
+            document.getElementById("erro_de_upgrade").innerHTML = "Estrelas Insuficientes";
+        }
+
+        if (upgrades === 1) {
+            document.getElementById("estrela").src = "Star.png";
+        } else if (upgrades === 2) {
+            document.getElementById("estrela").src = "Desenho 1 (2).png";
+            document.getElementById("estrela_atual").innerHTML = "Sua estrela atual é uma Gisel!";
+        } else if (upgrades === 3 || upgrades === 4) {
+            document.getElementById("estrela").src = "Desenho 1 (3) (2).png";
+            document.getElementById("estrela_atual").innerHTML = "Sua estrela atual é uma Betelgeuse!";
+        } else if (upgrades >= 5 && upgrades <= 7) {
+            document.getElementById("estrela").src = "Desenho 1 (4) (1).png";
+            document.getElementById("estrela_atual").innerHTML = "Sua estrela atual é uma Zubeneschamali!";
+        } else if (upgrades >= 8 && upgrades <= 10) {
+            document.getElementById("estrela").src = "Desenho 1 (6).png";
+            document.getElementById("estrela_atual").innerHTML = "Sua estrela atual é uma V838 Monocerotis!";
+        } else if (upgrades >= 11) {
+            document.getElementById("estrela").src = "Desenho 1 (5).png";
+            document.getElementById("estrela_atual").innerHTML = "Sua estrela atual é a grande e bela Supernova! Você alcançou o final.";
+        }
+    }
+
+    function ganho() {
+        stars += upgrades;
+        document.getElementById("stars").innerHTML = `${stars} Estrelas`;
+    }
+    
+    document.addEventListener("keydown", event => {
+      if (event.key === "Enter") {
+        ganho();
+      } else if (event.key === " ") {
+        upgrader();
+      }
+    })
+
+    setInterval(() => {
+        document.getElementById("valor_do_upgrade").innerHTML = `Valor do upgrade atual: ${upgradesCost}.`;
+    }, 200);
+  </script>
+
+  <img src="Star.png" width="200" height="200" onclick="ganho()" id="estrela">
+  <p id="estrela_atual">A sua estrela é uma estrela básica.</p>
+  <p id="stars">0 Estrelas</p>
+  <img src="Button Upgrade Better.png" width="100" height="50" onclick="upgrader()"><br>
+  <p id="upgrade">Melhore sua gameplay!</p>
+  <p id="valor_do_upgrade">  </p>
+  <p id="erro_de_upgrade">  </p>
+
+</body>
+</html>
